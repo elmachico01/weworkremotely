@@ -17,7 +17,6 @@ try:
     with open(JSON_PATH, 'r', encoding='utf-8') as f:
         SKILL_LIST = json.load(f)
 except FileNotFoundError:
-    # Fallback di sicurezza se il file non si trova (opzionale)
     print(f"ATTENTION: File {JSON_PATH} not found.")
 # Patrón Regex: \b(Python|React...)\b -> busca palabras completas, ignora mayúsculas
 SKILL_REGEX = re.compile(r'\b(' + '|'.join(re.escape(s) for s in SKILL_LIST) + r')\b')
@@ -85,7 +84,7 @@ class WeworkDataCleaningPipeline:
         adapter['job_type'] = adapter.get('job_type', "")
         adapter['category'] = adapter.get('category', "")
         
-        # --- CAMPO AÑADIDO ---
+        
         adapter['salary'] = adapter.get('salary', "")
         
         return item
@@ -147,5 +146,5 @@ class ElasticsearchPipeline:
         except Exception as e:
             # Añadimos 'level=logging.ERROR' para registrar 
             # el error correctamente
-            spider.log(f"ERROR during indexing: {e}", level=logging.ERROR) # <-- ✅ CORRECTO   
+            spider.log(f"ERROR during indexing: {e}", level=logging.ERROR)  
         return item
