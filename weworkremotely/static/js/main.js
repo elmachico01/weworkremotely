@@ -13,8 +13,7 @@ const searchInput = document.getElementById('search-query');
 const resultsContainer = document.getElementById('results-container');
 const resultsCount = document.getElementById('results-count');
 const loader = document.getElementById('loader');
-const filterSidebar = document.getElementById('filter-sidebar'); // Referencia a la barra lateral para el desplazamiento
-
+const filterSidebar = document.getElementById('filter-sidebar'); 
 // Listas de filtros
 const filterLists = {
     category: document.getElementById('category-list'),
@@ -48,7 +47,6 @@ async function fetchResults() {
         if (resultsCount) resultsCount.innerText = `Found ${data.total} results.`;
 
         // 2. MEMORIZA EL DESPLAZAMIENTO DE LA BARRA LATERAL ANTES DE ACTUALIZAR
-        // Esto impide que la barra lateral vuelva arriba cuando haces clic
         const scrollPos = filterSidebar ? filterSidebar.scrollTop : 0;
 
         // 3. RENDERIZA LOS FILTROS (con ordenación A-Z)
@@ -147,7 +145,7 @@ function renderFilterList(listElement, buckets, stateKey, dataKey, allText) {
 
     filtersHtml += items.map(item => {
         if (!item.key) return ''; 
-        // Nota: eliminado data-count para limpieza visual
+        
         return `
         <li>
             <a data-${dataKey}="${item.key}" 
