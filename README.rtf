@@ -1,0 +1,196 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\froman\fcharset0 Times-Italic;
+\f3\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c93333;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\deftab720
+\pard\pardeftab720\sa321\partightenfactor0
+
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \uc0\u55357 \u56695 \u65039  WorkSeek - Scraper & Buscador de Empleos
+\f1\b0\fs24 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 Este proyecto es una soluci\'f3n completa de tipo 
+\f0\b ETL (Extract, Transform, Load)
+\f1\b0 . Extrae ofertas de trabajo remoto de 
+\f2\i We Work Remotely
+\f1\i0 , limpia los datos, extrae habilidades t\'e9cnicas autom\'e1ticamente y las indexa en un motor de b\'fasqueda (Elasticsearch) para ser visualizadas en una aplicaci\'f3n web moderna.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \uc0\u55357 \u56514  Estructura del Proyecto
+\f1\b0\fs24 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 A continuaci\'f3n se muestra la organizaci\'f3n de los archivos. Es importante entenderla para saber desde d\'f3nde ejecutar los comandos.\
+weworkremotely/                  <-- Carpeta Ra\'edz del Proyecto (donde est\'e1 scrapy.cfg)\
+\uc0\u9474 \
+\uc0\u9500 \u9472 \u9472  scrapy.cfg                   # Archivo de configuraci\'f3n de despliegue de Scrapy\
+\uc0\u9474 \
+\uc0\u9492 \u9472 \u9472  weworkremotely/              # Paquete principal de Python\
+    \uc0\u9500 \u9472 \u9472  __init__.py\
+    \uc0\u9500 \u9472 \u9472  app.py                   # Aplicaci\'f3n Web (Flask + Backend API)\
+    \uc0\u9500 \u9472 \u9472  items.py                 # Definici\'f3n del modelo de datos (JobItem)\
+    \uc0\u9500 \u9472 \u9472  middlewares.py           # Middlewares de Scrapy\
+    \uc0\u9500 \u9472 \u9472  pipelines.py             # Limpieza de datos y env\'edo a Elasticsearch\
+    \uc0\u9500 \u9472 \u9472  settings.py              # Configuraci\'f3n del Spider y constantes\
+    \uc0\u9500 \u9472 \u9472  es_mapping.json          # Esquema de la base de datos Elasticsearch\
+    \uc0\u9500 \u9472 \u9472  skills_names.json        # Lista de keywords para detectar habilidades\
+    \uc0\u9474 \
+    \uc0\u9500 \u9472 \u9472  spiders/                 # Carpeta de los "Ara\'f1as" (Spiders)\
+    \uc0\u9474    \u9500 \u9472 \u9472  __init__.py\
+    \uc0\u9474    \u9492 \u9472 \u9472  wework_spider.py     # El c\'f3digo que navega y descarga los datos\
+    \uc0\u9474 \
+    \uc0\u9500 \u9472 \u9472  static/                  # Archivos est\'e1ticos del Frontend\
+    \uc0\u9474    \u9500 \u9472 \u9472  css/\
+    \uc0\u9474    \u9474    \u9492 \u9472 \u9472  style.css        # Estilos de la web\
+    \uc0\u9474    \u9500 \u9472 \u9472  js/\
+    \uc0\u9474    \u9474    \u9492 \u9472 \u9472  main.js          # L\'f3gica del buscador en el navegador\
+    \uc0\u9474    \u9492 \u9472 \u9472  workseek_logo.png    # Logo de la aplicaci\'f3n\
+    \uc0\u9474 \
+    \uc0\u9492 \u9472 \u9472  templates/               # Plantillas HTML (Flask)\
+        \uc0\u9500 \u9472 \u9472  index.html           # P\'e1gina principal con el buscador\
+        \uc0\u9492 \u9472 \u9472  search_results.html  # Vista de resultados\
+\pard\pardeftab720\partightenfactor0
+
+\fs36 \cf0 \strokec2 \uc0\u55357 \u56960  
+\f0\b Gu\'eda de Instalaci\'f3n\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 \strokec2 1. Configuraci\'f3n de la Base de Datos (Docker)
+\f1\b0\fs24 \strokec2 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 Antes de nada, necesitas ejecutar Elasticsearch. Usaremos la versi\'f3n recomendada 
+\f3\fs26 \strokec2 8.14.0
+\f1\fs24 \strokec2 .Es 
+\f0\b muy importante
+\f1\b0  incluir la opci\'f3n de deshabilitar la seguridad (
+\f3\fs26 \strokec2 xpack.security.enabled=false
+\f1\fs24 \strokec2 ) porque tu c\'f3digo actual de Python se conecta v\'eda HTTP simple, no HTTPS.\
+Comando:\
+docker run --name es-workseek -d -p 9200:9200 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:8.14.0\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 \strokec2 2. Crear un Entorno Virtual (Python)
+\f1\b0\fs24 \strokec2 \
+Es una buena pr\'e1ctica aislar las librer\'edas del proyecto. Abre tu terminal en la carpeta ra\'edz (
+\f3\fs26 \strokec2 weworkremotely/
+\f1\fs24 \strokec2 ) y ejecuta\
+\pard\pardeftab720\partightenfactor0
+\cf0 \strokec2 En Windows:\
+python -m venv venv\
+venv\\Scripts\\activate\
+En Mac/Linux:\
+python3 -m venv venv\
+source venv/bin/activate\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 \strokec2 3. Instalar las Dependencias\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 \strokec2 \
+Crea un archivo llamado 
+\f3\fs26 \strokec2 requirements.txt
+\f1\fs24 \strokec2  en la ra\'edz con el siguiente contenido:\
+\pard\pardeftab720\partightenfactor0
+\cf0 \strokec2 scrapy\
+flask\
+elasticsearch==8.14.0\
+beautifulsoup4\
+dateparser\
+lxml\
+itemadapter\
+\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 \strokec2 Luego,instala todo con:\
+pip install -r requirements.txt\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \uc0\u9654 \u65039  C\'f3mo Ejecutar el Proyecto\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 \
+El proyecto tiene dos partes: el 
+\f0\b Scraper
+\f1\b0  (que baja los datos) y la 
+\f0\b Web App
+\f1\b0  (que los muestra).\
+\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 \strokec2 Paso 1: Ejecutar el Scraper (Llenar la Base de Datos)\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 \strokec2 \
+Este comando navegar\'e1 por 
+\f2\i We Work Remotely
+\f1\i0 , descargar\'e1 los trabajos, los limpiar\'e1 y los guardar\'e1 en Elasticsearch.\
+Aseg\'farate de estar en la carpeta ra\'edz (donde est\'e1 
+\f3\fs26 \strokec2 scrapy.cfg
+\f1\fs24 \strokec2 ) y ejecuta:\
+scrapy crawl wework\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 \strokec2 Paso 2: Lanzar la Aplicaci\'f3n Web\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 \strokec2 \
+Una vez que tengas datos, levanta el servidor web Flask.\
+python weworkremotely/app.py\
+\pard\pardeftab720\partightenfactor0
+\cf0 \strokec2 Si todo va bien, ver\'e1s un mensaje como: 
+\f3\fs26 \strokec2 Running on http://127.0.0.1:5000\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 \strokec2 \
+Paso 3: Usar la Aplicaci\'f3n
+\f1\b0\fs24 \strokec2 \
+Abre tu navegador web y ve a: \uc0\u55357 \u56393  {\field{\*\fldinst{HYPERLINK "https://www.google.com/url?sa=E&source=gmail&q=http://127.0.0.1:5000"}}{\fldrslt 
+\f0\b \cf3 \ul \ulc3 \strokec3 http://127.0.0.1:5000}}\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls1\ilvl0\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Usa la barra lateral para filtrar por Categor\'eda, Pa\'eds, Salario o Skills.\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Escribe en el buscador principal para buscar por texto libre.\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \strokec2 \uc0\u55357 \u57056 \u65039  Tecnolog\'edas Utilizadas\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Scrapy:
+\f1\b0  Framework de extracci\'f3n de datos web.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Elasticsearch:
+\f1\b0  Motor de b\'fasqueda NoSQL y anal\'edtica.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Flask:
+\f1\b0  Micro-framework web para Python.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Docker:
+\f1\b0  Contenedorizaci\'f3n de la base de datos.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 BeautifulSoup4:
+\f1\b0  Limpieza de HTML.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Dateparser:
+\f1\b0  Normalizaci\'f3n de fechas relativas ("hace 2 horas" -> fecha ISO).\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 JavaScript (Vanilla):
+\f1\b0  L\'f3gica de filtrado en el frontend sin recargar la p\'e1gina.\
+\pard\pardeftab720\partightenfactor0
+\cf0 \strokec2 \
+\
+\
+}

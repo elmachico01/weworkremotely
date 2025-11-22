@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results for "{{ query }}"</title>
+    <style>
+        /* Estilos CSS para los resultados de la búsqueda */
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; }
+        .result { border-bottom: 1px solid #ccc; padding: 15px 0; }
+        .result h3 { margin-bottom: 5px; }
+        .result h3 a { text-decoration: none; color: #0056b3; }
+        .meta { font-size: 0.9em; color: #555; }
+        .snippet { font-style: italic; color: #333; margin-top: 10px; }
+        .skills span { background: #eee; padding: 3px 6px; border-radius: 4px; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <h1>Results for: "{{ query }}"</h1>
+    <p>Found <strong>{{ total }}</strong> results. (<a href="/">New Search</a>)</p>
+
+    <hr>
+    
+    {% for hit in hits %}
+        <div class="result">
+            <h3>
+                <a href="{{ hit._source.url }}" target="_blank">
+                    {{ hit._source.title }}
+                </a>
+            </h3>
+            <div class="meta">
+                <strong>Company:</strong> {{ hit._source.company }} | 
+                <strong>Category:</strong> {{ hit._source.category }} | 
+                <strong>Date:</strong> {{ hit._source.posted_date.split('T')[0] }}
+            </div>
+
+            {% if hit._source.skills %}
+                <div class="skills" style="margin-top: 10px;">
+                    <strong>Skills:</strong>
+                    {% for skill in hit._source.skills %}
+                        <span>{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if hit.highlight %}
+                <div class="snippet">
+                    ...{{ hit.highlight.description[0] | safe }}...
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endfor %}
+
+</body>
+</html>

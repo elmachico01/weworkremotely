@@ -1,0 +1,216 @@
+.logo-container {
+            text-align: center; /* Centra la imagen */
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color); /* Agrega un separador */
+        }
+        .sidebar-logo {
+            max-width: 120px; /* Establece un ancho máximo */
+            height: auto; /* Mantiene las proporciones */
+            border-radius: 10px; /* Redondea las esquinas */
+        }
+        :root {
+            --primary-color: #007bff;
+            --primary-color-hover: #0056b3;
+            --text-color: #333;
+            --secondary-text-color: #555;
+            --border-color: #ddd;
+            --background: #f9f9f9;
+            --card-background: #ffffff;
+            --active-background: #e6f2ff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            display: grid; 
+            grid-template-columns: 280px 1fr; 
+            gap: 40px; 
+            max-width: 1400px; 
+            margin: 40px auto; 
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        * { box-sizing: border-box; }
+        
+        /* --- BARRA LATERAL MODIFICADA PARA SCROLL INDEPENDIENTE --- */
+        aside { 
+            background: var(--card-background);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            
+            /* Fija la barra lateral y la hace desplazable independientemente */
+            position: sticky; 
+            top: 40px; 
+            align-self: start;
+            height: calc(100vh - 80px); /* Ocupa la altura de la ventana */
+            overflow-y: auto; /* Habilita el desplazamiento interno */
+            
+            /* Estético: Barra de desplazamiento delgada para Firefox/Chrome */
+            scrollbar-width: thin;
+        }
+
+        aside h3 { 
+            margin-top: 1.5em; 
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* Indica que es clickeable */
+            cursor: pointer; 
+        }
+        aside h3:first-of-type { margin-top: 0; }
+        
+        aside input[type="text"] {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02) inset;
+        }
+
+        /* --- LISTAS MODIFICADAS PARA MOSTRAR TODAS LAS HABILIDADES --- */
+        aside ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: none; /* Oculto por defecto */
+            
+            /* ELIMINADO max-height: 250px; para no cortar las habilidades */
+            max-height: none; 
+            overflow-y: visible; /* Usa el desplazamiento de la barra lateral padre */
+            
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        aside li a { 
+            display: flex; 
+            justify-content: space-between;
+            padding: 10px 12px; 
+            text-decoration: none; 
+            color: var(--primary-color); 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.95em;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        aside li a:hover { 
+            background: var(--active-background); 
+            color: var(--primary-color-hover); 
+        }
+        aside li a.active { 
+            background: var(--primary-color); 
+            color: white; 
+            font-weight: bold; 
+        }
+        aside li a.active::after {
+            background: white;
+            color: var(--primary-color);
+        }
+        main { min-width: 0; }
+        #search-form { position: relative; }
+        input[type="text"] { 
+            width: 100%; 
+            padding: 14px 20px; 
+            font-size: 1.1em; 
+            box-sizing: border-box; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03) inset;
+        }
+        #results-count {
+            font-size: 1.1em;
+            color: var(--secondary-text-color);
+            margin-bottom: 15px;
+        }
+        .result { 
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px 25px; 
+            margin-bottom: 20px;
+            transition: box-shadow 0.2s;
+        }
+        .result:hover {
+             box-shadow: 0 8px 16px rgba(0,0,0,0.07);
+        }
+        .result h3 { margin-top: 0; margin-bottom: 8px; }
+        .result h3 a { 
+            text-decoration: none; 
+            color: var(--primary-color-hover); 
+            font-size: 1.3em;
+        }
+        .meta, .skills { 
+            font-size: 0.9em; 
+            color: var(--secondary-text-color); 
+            margin-bottom: 12px;
+        }
+        .meta strong { color: var(--text-color); }
+        .snippet { 
+            font-style: italic; 
+            color: #444; 
+            margin-top: 15px; 
+            border-left: 3px solid var(--border-color);
+            padding-left: 12px;
+            font-size: 0.95em;
+        }
+        .snippet em { background-color: #fff3cd; font-style: normal; }
+        .skills span { 
+            background: var(--active-background);
+            color: var(--primary-color-hover);
+            padding: 4px 8px; 
+            border-radius: 5px; 
+            display: inline-block; 
+            margin-top: 5px; 
+            margin-right: 5px; 
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .result-header {
+            display: flex;
+            align-items: flex-start; 
+            gap: 15px; 
+        }
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: contain; 
+            border: 1px solid var(--border-color);
+            flex-shrink: 0; 
+        }
+        .company-logo-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: #f0f0f0; 
+            color: var(--secondary-text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .result-info {
+            flex-grow: 1; 
+        }
+        #loader { 
+            display: none; 
+            text-align: center; 
+            padding: 40px; 
+            font-weight: bold; 
+            font-size: 1.2em;
+            color: var(--secondary-text-color);
+        }

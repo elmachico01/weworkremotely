@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkSeek</title>
+    <link rel="icon" href="/static/workseek_logo.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <aside id="filter-sidebar">
+        <div class="logo-container">
+            <img src="/static/workseek_logo.png" alt="WorkSeek Logo" class="sidebar-logo">
+        </div>
+        <h3>📂 Job Categories</h3>
+        <input type="text" id="category-search" placeholder="Search job category..." onsubmit="event.preventDefault();">
+        <ul id="category-list">
+            </ul>
+
+        <h3>🌍 Countries</h3>
+        <input type="text" id="country-search" placeholder="Search country..." onsubmit="event.preventDefault();">
+        <ul id="country-list">
+            </ul>
+
+        <h3>💰 Salary Range</h3>
+        <input type="text" id="salary-search" placeholder="Search by salary range..." onsubmit="event.preventDefault();">
+        <ul id="salary-list">
+            </ul>
+
+        <h3>🛠️ Skills</h3>
+        <input type="text" id="skill-search" placeholder="Search skills..." onsubmit="event.preventDefault();">
+        <ul id="skill-list">
+            </ul>
+
+        <h3>💼 Job Type</h3>
+        <input type="text" id="job-type-search" placeholder="Search job type..." onsubmit="event.preventDefault();">
+        <ul id="job-type-list">
+            </ul>
+    </aside>
+
+    <main>
+        <form id="search-form" onsubmit="event.preventDefault();">
+            <input type="text" id="search-query" placeholder="Search by skill, title, company...">
+        </form>
+
+        <p id="results-count">Loading...</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 20px;">
+        
+        <div id="loader">Loading...</div>
+        <div id="results-container">
+            </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
