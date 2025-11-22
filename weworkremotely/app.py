@@ -35,11 +35,11 @@ def api_search():
     # 1. Recopilar las entradas (ahora como LISTAS)
     query_text = request.args.get('q', '')
     filters = {
-        "category": request.args.getlist('category'), # <-- .getlist()
-        "country": request.args.getlist('country'),   # <-- .getlist()
-        "job_type": request.args.getlist('job_type'), # <-- .getlist()
-        "salary": request.args.getlist('salary'),     # <-- .getlist()
-        "skill": request.args.getlist('skill')        # <-- .getlist()
+        "category": request.args.getlist('category'),
+        "country": request.args.getlist('country'),   
+        "job_type": request.args.getlist('job_type'), 
+        "salary": request.args.getlist('salary'),     
+        "skill": request.args.getlist('skill')        
     }
 
     # 2. Construir la consulta de búsqueda de texto
@@ -59,13 +59,13 @@ def api_search():
         "country": "country",
         "job_type": "job_type",
         "salary": "salary",
-        "skill": "skills" # Campo 'skills' en ES
+        "skill": "skills" # Campo 'skills'
     }
     
     for key, values in filters.items():
         if values: # Si la lista no está vacía
             field_name = filter_fields[key]
-            active_filters.append({"terms": {field_name: values}}) # <-- consulta 'terms' (plural)
+            active_filters.append({"terms": {field_name: values}}) 
 
     # 4. Construir la consulta principal para los RESULTADOS (hits)
     main_query = {
@@ -80,7 +80,7 @@ def api_search():
     
     for key, field_name in filter_fields.items():
         # Excluir el filtro actual de la lista de filtros para calcular los contadores correctamente
-        other_filters = [f for f in active_filters if field_name not in f.get("terms", {})] # <-- verificar 'terms'
+        other_filters = [f for f in active_filters if field_name not in f.get("terms", {})] 
         
         agg_filters_list = [must_clause] + other_filters
         
