@@ -1,51 +1,51 @@
-# Define here the models for your spider middleware
+# Define aquí los modelos para tu middleware de spider
 #
-# See documentation in:
+# Consulta la documentación en:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
 
-# useful for handling different item types with a single interface
+# útil para manejar diferentes tipos de items con una sola interfaz
 from itemadapter import ItemAdapter
 
 
 class WeworkremotelySpiderMiddleware:
-    # Not all methods need to be defined. If a method is not defined,
-    # scrapy acts as if the spider middleware does not modify the
-    # passed objects.
+    # No es necesario definir todos los métodos. Si un método no está definido,
+    # scrapy actúa como si el middleware del spider no modificara los
+    # objetos pasados.
 
     @classmethod
     def from_crawler(cls, crawler):
-        # This method is used by Scrapy to create your spiders.
+        # Este método es utilizado por Scrapy para crear tus spiders.
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
     def process_spider_input(self, response, spider):
-        # Called for each response that goes through the spider
-        # middleware and into the spider.
+        # Llamado para cada respuesta que pasa por el middleware del spider
+        # y entra al spider.
 
-        # Should return None or raise an exception.
+        # Debe devolver None o lanzar una excepción.
         return None
 
     def process_spider_output(self, response, result, spider):
-        # Called with the results returned from the Spider, after
-        # it has processed the response.
+        # Llamado con los resultados devueltos por el Spider, después de
+        # que ha procesado la respuesta.
 
-        # Must return an iterable of Request, or item objects.
+        # Debe devolver un iterable de objetos Request o item.
         for i in result:
             yield i
 
     def process_spider_exception(self, response, exception, spider):
-        # Called when a spider or process_spider_input() method
-        # (from other spider middleware) raises an exception.
+        # Llamado cuando un spider o el método process_spider_input()
+        # (de otro middleware de spider) lanza una excepción.
 
-        # Should return either None or an iterable of Request or item objects.
+        # Debe devolver None o un iterable de objetos Request o item.
         pass
 
     async def process_start(self, start):
-        # Called with an async iterator over the spider start() method or the
-        # maching method of an earlier spider middleware.
+        # Llamado con un iterador asíncrono sobre el método start() del spider o el
+        # método coincidente de un middleware de spider anterior.
         async for item_or_request in start:
             yield item_or_request
 
@@ -54,46 +54,46 @@ class WeworkremotelySpiderMiddleware:
 
 
 class WeworkremotelyDownloaderMiddleware:
-    # Not all methods need to be defined. If a method is not defined,
-    # scrapy acts as if the downloader middleware does not modify the
-    # passed objects.
+    # No es necesario definir todos los métodos. Si un método no está definido,
+    # scrapy actúa como si el middleware de descarga no modificara los
+    # objetos pasados.
 
     @classmethod
     def from_crawler(cls, crawler):
-        # This method is used by Scrapy to create your spiders.
+        # Este método es utilizado por Scrapy para crear tus spiders.
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
     def process_request(self, request, spider):
-        # Called for each request that goes through the downloader
-        # middleware.
+        # Llamado para cada solicitud que pasa por el middleware
+        # de descarga.
 
-        # Must either:
-        # - return None: continue processing this request
-        # - or return a Response object
-        # - or return a Request object
-        # - or raise IgnoreRequest: process_exception() methods of
-        #   installed downloader middleware will be called
+        # Debe:
+        # - devolver None: continuar procesando esta solicitud
+        # - o devolver un objeto Response
+        # - o devolver un objeto Request
+        # - o lanzar IgnoreRequest: se llamarán los métodos process_exception()
+        #   del middleware de descarga instalado
         return None
 
     def process_response(self, request, response, spider):
-        # Called with the response returned from the downloader.
+        # Llamado con la respuesta devuelta por el descargador.
 
-        # Must either;
-        # - return a Response object
-        # - return a Request object
-        # - or raise IgnoreRequest
+        # Debe:
+        # - devolver un objeto Response
+        # - devolver un objeto Request
+        # - o lanzar IgnoreRequest
         return response
 
     def process_exception(self, request, exception, spider):
-        # Called when a download handler or a process_request()
-        # (from other downloader middleware) raises an exception.
+        # Llamado cuando un gestor de descargas o un process_request()
+        # (de otro middleware de descarga) lanza una excepción.
 
-        # Must either:
-        # - return None: continue processing this exception
-        # - return a Response object: stops process_exception() chain
-        # - return a Request object: stops process_exception() chain
+        # Debe:
+        # - devolver None: continuar procesando esta excepción
+        # - devolver un objeto Response: detiene la cadena process_exception()
+        # - devolver un objeto Request: detiene la cadena process_exception()
         pass
 
     def spider_opened(self, spider):
