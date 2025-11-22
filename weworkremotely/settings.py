@@ -17,7 +17,7 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 AUTOTHROTTLE_DEBUG = False # Ponlo a True si quieres ver los logs del throttle
 
 
-# --- CONFIGURACIÓN DE PIPELINES (¡ACTIVADAS!) ---
+# --- CONFIGURACIÓN DE PIPELINES ---
 ITEM_PIPELINES = {
    # 1. Limpiar datos (prioridad 100)
    'weworkremotely.pipelines.WeworkDataCleaningPipeline': 100,
@@ -34,7 +34,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 ELASTICSEARCH_HOST = 'localhost'
 ELASTICSEARCH_PORT = 9200
-ELASTICSEARCH_INDEX = 'wework_jobs_final' # El nombre de tu índice
+ELASTICSEARCH_INDEX = 'wework_jobs_final'
 
 # Construye una ruta absoluta para 'es_mapping.json'
 ELASTICSEARCH_MAPPING_PATH = os.path.join(BASE_DIR, 'es_mapping.json')
