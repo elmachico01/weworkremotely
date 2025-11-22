@@ -9,7 +9,7 @@ class WeworkSpider(scrapy.Spider):
 
     def parse(self, response):
         
-        # 1. Extrae los enlaces de los trabajos de la página actual (como antes)
+        # 1. Extrae los enlaces de los trabajos de la página actual 
         job_links = response.css(
             'li.new-listing-container:not(.feature--ad) > a::attr(href)'
         ).getall()
@@ -19,7 +19,7 @@ class WeworkSpider(scrapy.Spider):
             yield response.follow(link, self.parse_job_detail)
 
         # --- 2. LÓGICA AÑADIDA ---
-        # Encuentra todos los enlaces "View all..." (basado en image_62a4b0.png)
+        # Encuentra todos los enlaces "View all..."
         # y ordénalos para evitar seguir el mismo enlace varias veces si aparece
         # en diferentes secciones (aunque los duplicados ya se gestionan)
         view_all_links = sorted(list(set(response.css('li.view-all > a::attr(href)').getall())))
@@ -44,7 +44,7 @@ class WeworkSpider(scrapy.Spider):
         item['url'] = response.url
         item['scrape_timestamp'] = datetime.utcnow().isoformat()
         
-        # --- SELECTORES CSS ACTUALIZADOS (de tus capturas de pantalla) ---
+        # --- SELECTORES CSS ACTUALIZADOS ---
         
         # Título 
         item['title'] = response.css(
@@ -68,10 +68,10 @@ class WeworkSpider(scrapy.Spider):
         ).get("").strip()
         # ---------------------------------------------------
 
-        # Descripción del trabajo (sin cambios)
+        # Descripción del trabajo
         item['description'] = response.css('div.lis-container__job__content__description').get()
 
-        # --- SELECTORES SIDEBAR XPath (sin cambios) ---
+        # --- SELECTORES SIDEBAR XPath ---
         
         item['posted_date'] = response.xpath(
             "//li[contains(., 'Posted on')]/span/text()"
@@ -86,7 +86,6 @@ class WeworkSpider(scrapy.Spider):
         ).get("").strip()
 
         # --- SELECTOR AÑADIDO PARA EL SALARIO ---
-        # Usa la misma lógica de la categoría, pero busca 'Salary'
         item['salary'] = response.xpath(
             "//li[contains(., 'Salary')]//span[contains(@class, 'box--blue')]/text()"
         ).get("").strip()
